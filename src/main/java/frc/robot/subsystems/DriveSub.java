@@ -44,11 +44,10 @@ public class DriveSub extends SubsystemBase {
   public static double streightAng = 0.0;
 
   public DriveSub() {
-    talonTurnBR.config_kF(0, 0.1);
-    talonTurnBR.config_kP(0, 0.07);
-    talonTurnBR.config_kI(0, 0);
-    talonTurnBR.config_kD(0, 0);
-    talonTurnBR.setNeutralMode(NeutralMode.Coast);
+    talonTurnBR.setNeutralMode(NeutralMode.Brake);
+    talonTurnBL.setNeutralMode(NeutralMode.Brake);
+    talonTurnFL.setNeutralMode(NeutralMode.Brake);
+    talonTurnFR.setNeutralMode(NeutralMode.Brake);
   }
 
   public void resetSwerveAngle() {
@@ -157,9 +156,9 @@ public class DriveSub extends SubsystemBase {
     talonTurnBR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
     talonTurnBR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     if (brakeMode == true) {
-      talonTurnBR.setNeutralMode(NeutralMode.Brake);
+      talonDriveBR.setNeutralMode(NeutralMode.Brake);
     } else {
-      talonTurnBR.setNeutralMode(NeutralMode.Coast);
+      talonDriveBR.setNeutralMode(NeutralMode.Coast);
     }
 
     talonTurnFR.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
@@ -168,9 +167,9 @@ public class DriveSub extends SubsystemBase {
     talonTurnFR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
     talonTurnFR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     if (brakeMode == true) {
-      talonTurnFR.setNeutralMode(NeutralMode.Brake);
+      talonDriveFR.setNeutralMode(NeutralMode.Brake);
     } else {
-      talonTurnFR.setNeutralMode(NeutralMode.Coast);
+      talonDriveFR.setNeutralMode(NeutralMode.Coast);
     }
 
     talonTurnBL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
@@ -179,9 +178,9 @@ public class DriveSub extends SubsystemBase {
     talonTurnBL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
     talonTurnBL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     if (brakeMode == true) {
-      talonTurnBL.setNeutralMode(NeutralMode.Brake);
+      talonDriveBL.setNeutralMode(NeutralMode.Brake);
     } else {
-      talonTurnBL.setNeutralMode(NeutralMode.Coast);
+      talonDriveBL.setNeutralMode(NeutralMode.Coast);
     }
 
     talonTurnFL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
@@ -190,9 +189,9 @@ public class DriveSub extends SubsystemBase {
     talonTurnFL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
     talonTurnFL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     if (brakeMode == true) {
-      talonTurnFL.setNeutralMode(NeutralMode.Brake);
+      talonDriveFL.setNeutralMode(NeutralMode.Brake);
     } else {
-      talonTurnFL.setNeutralMode(NeutralMode.Coast);
+      talonDriveFL.setNeutralMode(NeutralMode.Coast);
     }
     //SmartDashboard.putNumber("pidF", 1);
     //SmartDashboard.putNumber("pidP", 1);
