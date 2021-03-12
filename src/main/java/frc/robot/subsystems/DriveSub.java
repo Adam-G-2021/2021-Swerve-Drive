@@ -25,6 +25,7 @@ public class DriveSub extends SubsystemBase {
    * Creates a new DriveSub.
    */
 
+  // Initialize Swervedrive Talons
   WPI_TalonSRX talonDriveBL = new WPI_TalonSRX(36);
   WPI_TalonSRX talonTurnBL = new WPI_TalonSRX(37);
   WPI_TalonSRX talonDriveBR = new WPI_TalonSRX(38);
