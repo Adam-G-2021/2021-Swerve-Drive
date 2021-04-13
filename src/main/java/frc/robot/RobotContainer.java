@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoTestCom;
 import frc.robot.commands.DriveCom;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveElevatorCom;
 import frc.robot.commands.MoveToZeroAngleCom;
 import frc.robot.commands.ResetGyroGyro;
 import frc.robot.commands.ResetSwerveAngleCom;
+import frc.robot.commands.ShootBallCom;
 import frc.robot.commands.StreightModeCom;
 import frc.robot.commands.ToggleDebugModeCom;
 import frc.robot.commands.ToggleFieldCentric;
@@ -45,16 +47,26 @@ public class RobotContainer {
   private final autoMoveAround m_autoMove = new autoMoveAround();
   private final AutoTestCom m_autoCommand = new AutoTestCom();
   public static final DriveCom driveCom = new DriveCom();
+  public static final MoveElevatorCom moveElevatorCom = new MoveElevatorCom();
 
   public static SendableChooser autoMode = new SendableChooser<Command>();
 
   public static Joystick stick = new Joystick(0);
-  public static JoystickButton buttonA = new JoystickButton(stick, 1);
-  public static JoystickButton buttonB = new JoystickButton(stick, 2);
-  public static JoystickButton buttonL = new JoystickButton(stick, 5);
-  public static JoystickButton buttonY = new JoystickButton(stick, 4);
-  public static JoystickButton buttonX = new JoystickButton(stick, 3);
-  public static JoystickButton buttonR = new JoystickButton(stick, 6);
+  public static JoystickButton buttonA = new JoystickButton(stick, 1);  // Calibrate Swerve to 0 degrees
+  public static JoystickButton buttonB = new JoystickButton(stick, 2);  // Drive Streight
+  public static JoystickButton buttonL = new JoystickButton(stick, 5);  // Toggle Calibration Mode
+  public static JoystickButton buttonY = new JoystickButton(stick, 4);  // Toggle Field Centric
+  public static JoystickButton buttonX = new JoystickButton(stick, 3);  // Calibrate Gyro to 0 degrees
+  public static JoystickButton buttonR = new JoystickButton(stick, 6);  // Break
+
+  public static Joystick stick2 = new Joystick(1);
+  public static JoystickButton buttonA2 = new JoystickButton(stick2, 1);
+  public static JoystickButton buttonB2 = new JoystickButton(stick2, 2);
+  public static JoystickButton buttonX2 = new JoystickButton(stick2, 3);
+  public static JoystickButton buttonY2 = new JoystickButton(stick2, 4);
+  public static JoystickButton buttonL2 = new JoystickButton(stick2, 5);
+  public static JoystickButton buttonR2 = new JoystickButton(stick2, 10);
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -70,12 +82,19 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    
     buttonA.whenPressed(new ResetSwerveAngleCom());
     buttonB.whileHeld(new StreightModeCom());
     buttonL.whenPressed(new ToggleDebugModeCom());
     buttonY.whenPressed(new ToggleFieldCentric());
     buttonX.whenPressed(new ResetGyroGyro());
     buttonR.whileHeld(new brakeMode());
+    buttonA2.whileHeld(new ShootBallCom(1.00));   // Green Zone
+    buttonB2.whileHeld(new ShootBallCom(1.00));   // Red Zone
+    buttonX2.whileHeld(new ShootBallCom(0.72));   // Blue Zone
+    buttonY2.whileHeld(new ShootBallCom(0.66));   // Yellow Zone
+    buttonL2.whileHeld(new ShootBallCom(0.20));   // Puke It Out
+    buttonR2.whileHeld(new ShootBallCom(-0.20));  // Reverse, Reverse
   }
 
 

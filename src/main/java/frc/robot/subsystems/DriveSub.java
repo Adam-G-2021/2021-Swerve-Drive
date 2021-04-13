@@ -37,7 +37,7 @@ public class DriveSub extends SubsystemBase {
 
   public static Gyro gyro = new ADXRS450_Gyro();
 
-  public static boolean calibMode = true;
+  public static boolean calibMode = false;
   public static boolean ToggleFieldCentric = true;
   public static boolean brakeMode = false;
   public static boolean autoMode = false;
@@ -150,57 +150,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public void driveFromStickValues(double joyX, double joyY, double joyR) {
-    //#region
-    talonTurnBR.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
-    talonTurnBR.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
-    talonTurnBR.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
-    talonTurnBR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
-    talonTurnBR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-    if (brakeMode == true) {
-      talonDriveBR.setNeutralMode(NeutralMode.Brake);
-    } else {
-      talonDriveBR.setNeutralMode(NeutralMode.Coast);
-    }
 
-    talonTurnFR.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
-    talonTurnFR.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
-    talonTurnFR.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
-    talonTurnFR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
-    talonTurnFR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-    if (brakeMode == true) {
-      talonDriveFR.setNeutralMode(NeutralMode.Brake);
-    } else {
-      talonDriveFR.setNeutralMode(NeutralMode.Coast);
-    }
-
-    talonTurnBL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
-    talonTurnBL.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
-    talonTurnBL.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
-    talonTurnBL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
-    talonTurnBL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-    if (brakeMode == true) {
-      talonDriveBL.setNeutralMode(NeutralMode.Brake);
-    } else {
-      talonDriveBL.setNeutralMode(NeutralMode.Coast);
-    }
-
-    talonTurnFL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
-    talonTurnFL.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
-    talonTurnFL.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
-    talonTurnFL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
-    talonTurnFL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-    if (brakeMode == true) {
-      talonDriveFL.setNeutralMode(NeutralMode.Brake);
-    } else {
-      talonDriveFL.setNeutralMode(NeutralMode.Coast);
-    }
-    //SmartDashboard.putNumber("pidF", 1);
-    //SmartDashboard.putNumber("pidP", 1);
-    //SmartDashboard.putNumber("pidI", 1);
-    //SmartDashboard.putNumber("pidD", 1);
-    //#endregion
-
-    
     double gyroAng = gyro.getAngle();
     SmartDashboard.putNumber("Gyro Angle", gyroAng);
 
@@ -283,21 +233,76 @@ public class DriveSub extends SubsystemBase {
       if (Math.abs(vecBLM) >= 0.1) talonTurnBL.set(ControlMode.Position, vecBLA);
       talonDriveBL.set(ControlMode.PercentOutput, vecBLM / 2);
       if (Math.abs(vecBRM) >= 0.1) talonTurnBR.set(ControlMode.Position, vecBRA);
-      talonDriveBR.set(ControlMode.PercentOutput, (vecBRM / 2) + 0.05);
+      talonDriveBR.set(ControlMode.PercentOutput, vecBRM / 2);
       if (Math.abs(vecFRM) >= 0.1) talonTurnFR.set(ControlMode.Position, vecFRA);
       talonDriveFR.set(ControlMode.PercentOutput, vecFRM / 2);
       if (Math.abs(vecFLM) >= 0.1) talonTurnFL.set(ControlMode.Position, vecFLA);
-      talonDriveFL.set(ControlMode.PercentOutput, (vecFLM / 2) + 0.05);
+      talonDriveFL.set(ControlMode.PercentOutput, vecFLM / 2);
     } else {
 
       talonTurnBR.set(ControlMode.PercentOutput, joyR / 2);
       talonTurnFR.set(ControlMode.PercentOutput, joyR / 2);
       talonTurnBL.set(ControlMode.PercentOutput, joyR / 2);
-      talonTurnFL.set(ControlMode.PercentOutput, joyR / 2);//*/
+      talonTurnFL.set(ControlMode.PercentOutput, joyR / 2);
+      talonTurnFL.setNeutralMode(NeutralMode.Coast);
+      talonTurnFR.setNeutralMode(NeutralMode.Coast);
+      talonTurnBL.setNeutralMode(NeutralMode.Coast);
+      talonTurnBR.setNeutralMode(NeutralMode.Coast);
+      //*/
       //talonDriveBR.set(ControlMode.PercentOutput, -0.15);
       //talonDriveBL.set(ControlMode.PercentOutput, -0.15);
       //talonDriveFR.set(ControlMode.PercentOutput, -0.15);
       //talonDriveFL.set(ControlMode.PercentOutput, -0.15);
+      
+      //#region
+      talonTurnBR.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
+      talonTurnBR.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
+      talonTurnBR.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
+      talonTurnBR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
+      talonTurnBR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+      if (brakeMode == true) {
+        talonDriveBR.setNeutralMode(NeutralMode.Brake);
+      } else {
+        talonDriveBR.setNeutralMode(NeutralMode.Coast);
+      }
+
+      talonTurnFR.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
+      talonTurnFR.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
+      talonTurnFR.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
+      talonTurnFR.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
+      talonTurnFR.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+      if (brakeMode == true) {
+        talonDriveFR.setNeutralMode(NeutralMode.Brake);
+      } else {
+        talonDriveFR.setNeutralMode(NeutralMode.Coast);
+      }
+
+      talonTurnBL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
+      talonTurnBL.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
+      talonTurnBL.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
+      talonTurnBL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
+      talonTurnBL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+      if (brakeMode == true) {
+        talonDriveBL.setNeutralMode(NeutralMode.Brake);
+      } else {
+        talonDriveBL.setNeutralMode(NeutralMode.Coast);
+      }
+
+      talonTurnFL.config_kF(0, SmartDashboard.getNumber("pidF", 0.00));
+      talonTurnFL.config_kP(0, SmartDashboard.getNumber("pidP", 7.00));
+      talonTurnFL.config_kI(0, SmartDashboard.getNumber("pidI", 0.0005));
+      talonTurnFL.config_kD(0, SmartDashboard.getNumber("pidD", 0.01));
+      talonTurnFL.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+      if (brakeMode == true) {
+        talonDriveFL.setNeutralMode(NeutralMode.Brake);
+      } else {
+        talonDriveFL.setNeutralMode(NeutralMode.Coast);
+      }
+      //SmartDashboard.putNumber("pidF", 1);
+      //SmartDashboard.putNumber("pidP", 1);
+      //SmartDashboard.putNumber("pidI", 1);
+      //SmartDashboard.putNumber("pidD", 1);
+      //#endregion
     }
 
     SmartDashboard.putBoolean("Field Centric?", ToggleFieldCentric);

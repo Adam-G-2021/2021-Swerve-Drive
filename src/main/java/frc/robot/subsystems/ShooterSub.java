@@ -9,10 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -28,6 +25,7 @@ public class ShooterSub extends SubsystemBase {
   
   public static TalonSRX elevatorOuter = new TalonSRX(3);
   public static TalonSRX elevatorInner = new TalonSRX(4);
+  public static TalonSRX intake = new TalonSRX(5);
 
   public static DigitalInput optical = new DigitalInput(0);
 
@@ -51,12 +49,10 @@ public class ShooterSub extends SubsystemBase {
 
   public static void moveElevator(double speed) {
     elevatorOuter.set(ControlMode.PercentOutput, speed);
-    elevatorInner.set(ControlMode.PercentOutput, speed * 2);
+    elevatorInner.set(ControlMode.PercentOutput, speed);
   }
-
-  public static void setSparkTest() {
-    motor1.set(-0.5);
-    motor2.set(0.5);
+  public static void moveIntake(double speed) {
+    intake.set(ControlMode.PercentOutput, speed);
   }
 
   @Override

@@ -29,11 +29,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our RobotContainer. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
     RobotContainer.driveSub.setDefaultCommand(RobotContainer.driveCom);
+    RobotContainer.shooterSub.setDefaultCommand(RobotContainer.moveElevatorCom);
+    //RobotContainer.driveSub.resetSwerveAngle();
     CameraSub.initCamera();
   }
 

@@ -9,15 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ShooterSub;
 
-
-public class DriveCom extends CommandBase {
+public class MoveElevatorCom extends CommandBase {
   /**
-   * Creates a new DriveCom.
+   * Creates a new MoveElevatorCom.
    */
-  public DriveCom() {
+  public MoveElevatorCom() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.driveSub);
+    addRequirements(RobotContainer.shooterSub);
   }
 
   // Called when the command is initially scheduled.
@@ -28,10 +28,10 @@ public class DriveCom extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.driveSub.autoMode == false) {
-      RobotContainer.driveSub.swerveDrive();
-    }
-    //RobotContainer.shooterSub.setSparkTest();
+    double leftY = RobotContainer.stick2.getRawAxis(1);
+    double rightY = RobotContainer.stick2.getRawAxis(3);
+    ShooterSub.moveElevator(leftY * 0.75 * 0.5);
+    ShooterSub.moveIntake(rightY * 0.75 * 0.5);
   }
 
   // Called once the command ends or is interrupted.
