@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-//jkijuhfndkmsjfffrkkkkjidfjijkrgjog
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -82,7 +82,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+    // Hi Tetsuya!
     buttonA.whenPressed(new ResetSwerveAngleCom());
     buttonB.whileHeld(new StreightModeCom());
     buttonL.whenPressed(new ToggleDebugModeCom());
